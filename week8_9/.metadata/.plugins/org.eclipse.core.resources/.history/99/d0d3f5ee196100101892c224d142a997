@@ -1,0 +1,5 @@
+package example.ribbonclientapp.controller;
+
+public class RibbonController {
+
+}

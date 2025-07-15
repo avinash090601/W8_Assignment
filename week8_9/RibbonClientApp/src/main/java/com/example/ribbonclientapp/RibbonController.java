@@ -1,0 +1,22 @@
+package com.example.ribbonclientapp;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class RibbonController {
+
+    @Autowired
+    private LoadBalancerClient loadBalancerClient;
+
+    @GetMapping("/get-message")
+    public String getMessageFromService() {
+        ServiceInstance instance = loadBalancerClient.choose("rest-service");
+        String url = instance.getUri().toString() + "/message";
+        return new RestTemplate().getForObject(url, String.class);
+    }
+}

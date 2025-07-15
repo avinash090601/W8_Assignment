@@ -1,0 +1,5 @@
+package com.example.restribbonserver.controller;
+
+public class MessageController {
+
+}
